@@ -5,6 +5,7 @@ class Board
   end
 
   def print_board
+    print "\n"
     9.times do |i|
         if i%3==2
           print @a[i]+"\n"
@@ -14,8 +15,14 @@ class Board
     end
   end
 
-  def put_move(pos, sign)
-    @a[pos] = sign
+  def put_move(sign)
+    pos = gets.chomp.to_i
+    if @a[pos] == '_'
+      @a[pos] = sign
+    else
+      puts "Wrong move"
+      put_move(sign)
+    end
   end
 
   def available_moves
@@ -86,4 +93,5 @@ class Board
       return false
     end
   end
+
 end

@@ -2,7 +2,7 @@ require_relative 'board.rb'
 
 class Game
 
-    def initialize(player1_name, player2_name)
+  def initialize(player1_name, player2_name)
 
     @player1_name = player1_name
     @player2_name = player2_name
@@ -33,9 +33,9 @@ class Game
 
   def turn(player_name, sign)
     puts "\n"+player_name+"("+sign+") it's your turn!\nAvailable moves, "+@new_board.available_moves
-    move = gets.chomp.to_i
-    @new_board.put_move(move, sign)
+    @new_board.put_move(sign)
     if @new_board.win(sign)
+      @new_board.print_board
       puts "\n"+player_name+"("+sign+") Wins!"
       if sign == 'X'
         @score += 1
@@ -52,7 +52,7 @@ class Game
     turn_count = 0
     @new_board = Board.new
 
-    while(!@new_board.draw || !@new_board.win('X') || !@new_board.win('O'))
+    while(!@new_board.draw && !@new_board.win('X') && !@new_board.win('O'))
       turn_count += 1
       @new_board.print_board
       if turn_count%2==1
@@ -62,4 +62,7 @@ class Game
       end
     end
   end
+
+  private :start_round, :turn
+
 end
